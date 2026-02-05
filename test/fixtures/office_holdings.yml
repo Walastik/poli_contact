@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  office: one
+  person: one
+  start_date: 2026-02-04
+  end_date: 2026-02-04
+
+two:
+  office: two
+  person: two
+  start_date: 2026-02-04
+  end_date: 2026-02-04

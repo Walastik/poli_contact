@@ -1,0 +1,65 @@
+<main class="container">
+  <section>
+    <h1>Find Your Representatives</h1>
+
+    <%= form_with url: root_path, method: :get, local: true do |form| %>
+      <div>
+        <%= form.label :address, "Residential address" %><br>
+        <%= form.text_field :address, value: @address, placeholder: "123 Main St, City, ST ZIP", size: 60 %>
+      </div>
+      <div style="margin-top: 0.5rem;">
+        <%= form.submit "Lookup representatives" %>
+      </div>
+    <% end %>
+
+    <% if @error_message.present? %>
+      <p style="color: red;"><%= @error_message %></p>
+    <% end %>
+  </section>
+
+  <% if @office_holdings&.any? %>
+    <section style="margin-top: 2rem;">
+      <h2>Your current representatives</h2>
+      <ul>
+        <% @office_holdings.each do |holding| %>
+          <li>
+            <strong><%= holding.office.name %></strong>:
+            <%= holding.person.name %>
+            <% if holding.person.party.present? %>
+              (<%= holding.person.party %>)
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </section>
+  <% end %>
+
+  <% if @bills&.any? %>
+    <section style="margin-top: 2rem;">
+      <h2>Recent bills (sample)</h2>
+      <ul>
+        <% @bills.each do |bill| %>
+          <li>
+            <strong><%= "#{bill.congress} #{bill.bill_type.upcase} #{bill.number}" %></strong>:
+            <%= bill.title || bill.short_title %>
+            <% if bill.current_status.present? %>
+              – <em><%= bill.current_status %></em>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </section>
+  <% end %>
+
+  <% if @divisions&.any? %>
+    <section style="margin-top: 2rem;">
+      <h2>Divisions</h2>
+      <ul>
+        <% @divisions.each do |division| %>
+          <li><%= division.name %></li>
+        <% end %>
+      </ul>
+    </section>
+  <% end %>
+</main>
+
